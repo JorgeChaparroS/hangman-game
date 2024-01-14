@@ -1,0 +1,22 @@
+.loserContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(241, 168, 168);
+    border-radius: 20px;
+    border: 1px solid red;
+    padding: 1rem 3rem;
+    color: red;
+    gap: 20px;
+}
+
+.messageTitle {
+    margin: 0 !important;
+    font-size: 3rem;
+}
+
+.message {
+    font-size: 2rem;
+    margin: 0;
+}

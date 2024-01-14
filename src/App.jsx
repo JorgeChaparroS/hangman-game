@@ -3,6 +3,8 @@ import { getRandomWord } from "./api/APIUtils"
 import { getValidCharacter, letterGeneratesError, generateArrayMatchingLetters } from './logic/utils'
 import LetterFromWord from './components/letterFromWord/letterFromWord'
 import { GAME_STATUS } from './utils/constants'
+import Winner from "./components/winner/winner"
+import Loser from "./components/loser/loser"
 
 import './App.css'
 
@@ -78,14 +80,19 @@ function App() {
     }
   }, [triesLeft]);
 
+  /* Function to restart screen in case of wictory or loose*/
+  function restartGame() {
+    setRandomWord('');
+    setAllCharactersPressed([]);
+    setMatchingLetters([]);
+    setTriesLeft(5);
+    setGameStatus(GAME_STATUS.PLAYING);
+    getRandomWordFromAPI();
+  }
 
   return (
     <>
-      <main>
-        <h1>{randomWord}</h1>
-        {
-          allCharactersPressed.map(letter => letter)
-        }
+      <main style={{gap: '20px'}}>
         {
           randomWord && <section className="gameContainer">
             {
@@ -95,8 +102,12 @@ function App() {
             }
           </section>
         }
-        {triesLeft}
-        {gameStatus}
+        {
+          gameStatus === GAME_STATUS.WINNER && <Winner randomWord={randomWord} handleClick={restartGame}></Winner>
+        }
+        {
+          gameStatus === GAME_STATUS.LOSER && <Loser randomWord={randomWord} handleClick={restartGame}></Loser>
+        }
       </main>
     </>
     

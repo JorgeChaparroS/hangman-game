@@ -1,0 +1,18 @@
+.winner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.titleWinner {
+    color: red;
+    font-size: 3rem;
+    margin: 0;
+}
+
+.messageWinner {
+    color: #222;
+    font-size: 2rem;
+}

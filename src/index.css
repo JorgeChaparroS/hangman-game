@@ -16,3 +16,13 @@
 body {
     margin: 0;
 }
+
+button {
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+    cursor: pointer;
+}
