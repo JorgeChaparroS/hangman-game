@@ -1,0 +1,16 @@
+.letterContainer {
+    background-color: aliceblue;
+    border-bottom: 2px solid black;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(33, 103, 252);
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.rightLetter {
+    border: 2px solid rgb(33, 103, 252);
+}

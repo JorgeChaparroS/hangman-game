@@ -1,8 +1,21 @@
-# React + Vite
+# HANGMAN GAME.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This react project brings a random word from the API: 
 
-Currently, two official plugins are available:
+Then you can start playing by trying to guess the word that was brought.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Use the key board to type letters. Once one of them is contained in the word, it will be showed on screen.
+
+But be carefull, you have limited chances to guess the word. Don´t let your man die.
+
+Good look. 
+
+
+# Tasks: 
+    1. Crear event listener para el teclado. 
+    2. Crear un arreglo con los intentos de lo que se va ingresando.
+    3. Crear componente para mostrar las letras que se van adivinando. 
+    4. Función para validar si caracter es válido. 
+    5. Función de comparación para que se muestre lo que se ha ingresado. 
+    6. Lógica para saber ganador. 
+    
