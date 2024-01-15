@@ -11,8 +11,9 @@ But be carefull, you have limited chances to guess the word. Don´t let your man
 Good look.
 
 # Tech Stack.
-This project was built using React.js
+This project was built using React.js + Vite
 
 # Just so you know:
 This application is not responsive. It will only look "good" (I did not put much effort in the UI, the main purpose of this app is to practice some of my programming logic and basic React.js knowlegde) on desktop screens.  
-    
+
+Also, the API returns spanish words, so if you are not a native speaker, you can use this app also to expand your vocabulary.
