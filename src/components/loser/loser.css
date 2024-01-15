@@ -1,3 +1,8 @@
+.positionOfLoser {
+    position: absolute;
+    top: 20px;
+}
+
 .loserContainer {
     display: flex;
     justify-content: center;
@@ -8,15 +13,13 @@
     border: 1px solid red;
     padding: 1rem 3rem;
     color: red;
-    gap: 20px;
+    gap: 10px;
 }
 
 .messageTitle {
     margin: 0 !important;
-    font-size: 3rem;
 }
 
 .message {
-    font-size: 2rem;
     margin: 0;
 }

@@ -1,0 +1,9 @@
+.imagesContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.hangmanImage {
+    width: 80%;
+    min-width: 200px;
+}

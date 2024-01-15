@@ -1,0 +1,13 @@
+.pressedCharsContainer {
+    padding: 10px;
+    color: #CCC;
+    border: 2px solid #CCC;
+}
+
+.textWrong {
+    color: red;
+}
+
+.textSuccess {
+    color: green;
+}

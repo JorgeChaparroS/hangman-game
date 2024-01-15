@@ -17,18 +17,6 @@
     border-radius: 20px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 3rem;
-    width: 80%;
-}
-
-@media (min-width: 768px) {
-    .modalContent {
-        width: 70%;
-    }
-}
-
-@media (min-width: 1200px) {
-    .modalContent {
-        width: 50%;
-    }
+    padding: 1rem;
+    width: 30%;
 }

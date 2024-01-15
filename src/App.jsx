@@ -2,10 +2,12 @@ import { useEffect, useState } from "react"
 import { getRandomWord } from "./api/APIUtils"
 import { getValidCharacter, letterGeneratesError, generateArrayMatchingLetters } from './logic/utils'
 import LetterFromWord from './components/letterFromWord/letterFromWord'
-import { GAME_STATUS } from './utils/constants'
+import { GAME_STATUS, TRIES } from './utils/constants'
 import Winner from "./components/winner/winner"
 import Loser from "./components/loser/loser"
-
+import Hangman from "./components/hangman/hangman"
+import Instructions from "./components/instructions/instructions"
+import PressedCharacters from "./components/pressedCharacters/pressedCharacters"
 import './App.css'
 
 function App() {
@@ -13,7 +15,7 @@ function App() {
   const [randomWord, setRandomWord] = useState('');
   const [allCharactersPressed, setAllCharactersPressed] = useState([]);
   const [matchingLetters, setMatchingLetters] = useState([]);
-  const [triesLeft, setTriesLeft] = useState(5);
+  const [triesLeft, setTriesLeft] = useState(TRIES);
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.PLAYING);
 
   const getRandomWordFromAPI = async () => {
@@ -51,10 +53,15 @@ function App() {
     }
 
     document.addEventListener('keydown', handleCharacterFromEvent);
+
+    if (gameStatus === GAME_STATUS.LOSER || gameStatus === GAME_STATUS.WINNER) {
+      document.removeEventListener('keydown', handleCharacterFromEvent);
+    }
+
     return () => {
       document.removeEventListener('keydown', handleCharacterFromEvent);
     }
-  }, [allCharactersPressed, randomWord, matchingLetters])
+  }, [allCharactersPressed, randomWord, matchingLetters, gameStatus])
 
 
   /* Function to initialize array */
@@ -85,29 +92,39 @@ function App() {
     setRandomWord('');
     setAllCharactersPressed([]);
     setMatchingLetters([]);
-    setTriesLeft(5);
+    setTriesLeft(TRIES);
     setGameStatus(GAME_STATUS.PLAYING);
     getRandomWordFromAPI();
   }
 
   return (
     <>
-      <main style={{gap: '20px'}}>
-        {
-          randomWord && <section className="gameContainer">
+      <main className="gameContainer">
+        <h1>El Ahorcado</h1>
+        <div className="board">
+          <section style={{width: '35%'}}>
+            <Instructions></Instructions>
+          </section>
+          
+          <section className="hangmanSection">
+            <Hangman triesLeft={triesLeft}></Hangman>
             {
-              matchingLetters.map((letter, index) => {
-                return <LetterFromWord key={`letter-${index}`} letterToShow={letter}/>
-              })
+              randomWord && <section className="lettersContainer">
+                {
+                  matchingLetters.map((letter, index) => {
+                    return <LetterFromWord key={`letter-${index}`} letterToShow={letter}/>
+                  })
+                }
+              </section>
             }
           </section>
-        }
-        {
-          gameStatus === GAME_STATUS.WINNER && <Winner randomWord={randomWord} handleClick={restartGame}></Winner>
-        }
-        {
-          gameStatus === GAME_STATUS.LOSER && <Loser randomWord={randomWord} handleClick={restartGame}></Loser>
-        }
+
+          <section style={{width: '35%'}}>
+            <PressedCharacters characters={allCharactersPressed} randomWord={randomWord}></PressedCharacters>
+          </section>
+        </div>
+        { gameStatus === GAME_STATUS.WINNER && <Winner randomWord={randomWord} handleClick={restartGame}></Winner> }
+        { gameStatus === GAME_STATUS.LOSER && <Loser randomWord={randomWord} handleClick={restartGame}></Loser> }
       </main>
     </>
     

@@ -1,12 +1,28 @@
-main {
+.gameContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
+    gap: 20px;
 }
 
-.gameContainer {
+.board {
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
+    width: 100%;
+    align-items: start;
+}
+
+.hangmanSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.lettersContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }

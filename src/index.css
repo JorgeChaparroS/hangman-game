@@ -18,11 +18,11 @@ body {
 }
 
 button {
-    font-size: 2rem;
-    padding: 1rem;
+    padding: 10px;
     border-radius: 20px;
     background-color: green;
     color: white;
     border: 1px solid green;
     cursor: pointer;
+    font-weight: bold;
 }

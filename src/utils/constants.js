@@ -5,3 +5,5 @@ export const GAME_STATUS = {
 };
 
 export const API_ENDPOINT = 'https://clientes.api.greenborn.com.ar/public-random-word';
+
+export const TRIES = 8;
