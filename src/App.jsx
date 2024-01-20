@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { getRandomWord } from "./api/APIUtils"
 import { getValidCharacter, letterGeneratesError, generateArrayMatchingLetters } from './logic/utils'
 import LetterFromWord from './components/letterFromWord/letterFromWord'
 import { GAME_STATUS, TRIES } from './utils/constants'
@@ -9,30 +8,16 @@ import Hangman from "./components/hangman/hangman"
 import Instructions from "./components/instructions/instructions"
 import PressedCharacters from "./components/pressedCharacters/pressedCharacters"
 import './App.css'
+import {useRandomWord} from './hooks/randomWord';
+
 
 function App() {
 
-  const [randomWord, setRandomWord] = useState('');
+  const {randomWord, setRandomWord, getRandomWordFromAPI} = useRandomWord();
   const [allCharactersPressed, setAllCharactersPressed] = useState([]);
   const [matchingLetters, setMatchingLetters] = useState([]);
   const [triesLeft, setTriesLeft] = useState(TRIES);
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.PLAYING);
-
-  const getRandomWordFromAPI = async () => {
-    try {
-      const randomWordFromAPI = await getRandomWord();
-      const word = randomWordFromAPI.toUpperCase();
-      setRandomWord(word)
-    } catch {
-      console.error('Ocurrió un error obteniendo la palabra.')
-    }
-  }
-
-  /* Function to bring random word */
-  useEffect(() => {
-    getRandomWordFromAPI();
-  }, [])
-
 
   /* Function to check keyboard events*/
   useEffect(() => {
