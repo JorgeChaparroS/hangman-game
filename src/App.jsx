@@ -9,13 +9,14 @@ import Instructions from "./components/instructions/instructions"
 import PressedCharacters from "./components/pressedCharacters/pressedCharacters"
 import './App.css'
 import {useRandomWord} from './hooks/randomWord';
+import {useLettersInWord} from './hooks/lettersInWord';
 
 
 function App() {
 
   const {randomWord, setRandomWord, getRandomWordFromAPI} = useRandomWord();
+  const {matchingLetters, setMatchingLetters} = useLettersInWord(randomWord);
   const [allCharactersPressed, setAllCharactersPressed] = useState([]);
-  const [matchingLetters, setMatchingLetters] = useState([]);
   const [triesLeft, setTriesLeft] = useState(TRIES);
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.PLAYING);
 
@@ -46,16 +47,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', handleCharacterFromEvent);
     }
-  }, [allCharactersPressed, randomWord, matchingLetters, gameStatus])
-
-
-  /* Function to initialize array */
-  useEffect(() => {
-    if (randomWord) {
-      const initialMatchingLetters = new Array(randomWord.length).fill(null);
-      setMatchingLetters(initialMatchingLetters);
-    }
-  }, [randomWord]);
+  }, [allCharactersPressed, randomWord, matchingLetters, setMatchingLetters, gameStatus])
 
   /* Function to check when there is a winner */
   useEffect(() => {
