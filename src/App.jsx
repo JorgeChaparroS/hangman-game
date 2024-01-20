@@ -10,6 +10,7 @@ import PressedCharacters from "./components/pressedCharacters/pressedCharacters"
 import './App.css'
 import {useRandomWord} from './hooks/randomWord';
 import {useLettersInWord} from './hooks/lettersInWord';
+import {useGameStatus} from './hooks/gameStatus';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
   const {matchingLetters, setMatchingLetters} = useLettersInWord(randomWord);
   const [allCharactersPressed, setAllCharactersPressed] = useState([]);
   const [triesLeft, setTriesLeft] = useState(TRIES);
-  const [gameStatus, setGameStatus] = useState(GAME_STATUS.PLAYING);
+  const {gameStatus, setGameStatus} = useGameStatus(matchingLetters, triesLeft);
 
   /* Function to check keyboard events*/
   useEffect(() => {
@@ -49,23 +50,8 @@ function App() {
     }
   }, [allCharactersPressed, randomWord, matchingLetters, setMatchingLetters, gameStatus])
 
-  /* Function to check when there is a winner */
-  useEffect(() => {
-    const youWon = matchingLetters.every(letter => letter !== null) && matchingLetters.length > 0;
-    if (youWon) {
-      setGameStatus(GAME_STATUS.WINNER);
-    }
-  }, [matchingLetters]);
-
-  /* Function to check when there is a loser */
-  useEffect(() => {
-    if (triesLeft === 0) {
-      setGameStatus(GAME_STATUS.LOSER);
-    }
-  }, [triesLeft]);
-
   /* Function to restart screen in case of wictory or loose*/
-  function restartGame() {
+  const restartGame = () => {
     setRandomWord('');
     setAllCharactersPressed([]);
     setMatchingLetters([]);
