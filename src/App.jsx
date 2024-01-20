@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { getValidCharacter, letterGeneratesError, generateArrayMatchingLetters } from './logic/utils'
+import { useState } from "react"
 import LetterFromWord from './components/letterFromWord/letterFromWord'
 import { GAME_STATUS, TRIES } from './utils/constants'
 import Winner from "./components/winner/winner"
@@ -8,47 +7,19 @@ import Hangman from "./components/hangman/hangman"
 import Instructions from "./components/instructions/instructions"
 import PressedCharacters from "./components/pressedCharacters/pressedCharacters"
 import './App.css'
-import {useRandomWord} from './hooks/randomWord';
-import {useLettersInWord} from './hooks/lettersInWord';
-import {useGameStatus} from './hooks/gameStatus';
+import { useRandomWord } from './hooks/randomWord';
+import { useLettersInWord } from './hooks/lettersInWord';
+import { useGameStatus } from './hooks/gameStatus';
+import { useKeyboard } from './hooks/keyboard';
 
 
 function App() {
 
   const {randomWord, setRandomWord, getRandomWordFromAPI} = useRandomWord();
   const {matchingLetters, setMatchingLetters} = useLettersInWord(randomWord);
-  const [allCharactersPressed, setAllCharactersPressed] = useState([]);
   const [triesLeft, setTriesLeft] = useState(TRIES);
   const {gameStatus, setGameStatus} = useGameStatus(matchingLetters, triesLeft);
-
-  /* Function to check keyboard events*/
-  useEffect(() => {
-
-    const handleCharacterFromEvent = (event) => {
-      const newallCharactersPressed = [...allCharactersPressed];
-      const characterPressed = getValidCharacter(event);
-      if (characterPressed) {
-        if (letterGeneratesError(characterPressed, randomWord, allCharactersPressed)) {
-          setTriesLeft((previousTriesLeft) => previousTriesLeft - 1);
-        } else {
-          const newMatchingLetters = generateArrayMatchingLetters(randomWord, matchingLetters, characterPressed);
-          setMatchingLetters(newMatchingLetters);
-        }
-        newallCharactersPressed.push(characterPressed);
-      }
-      setAllCharactersPressed(newallCharactersPressed);
-    }
-
-    document.addEventListener('keydown', handleCharacterFromEvent);
-
-    if (gameStatus === GAME_STATUS.LOSER || gameStatus === GAME_STATUS.WINNER) {
-      document.removeEventListener('keydown', handleCharacterFromEvent);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleCharacterFromEvent);
-    }
-  }, [allCharactersPressed, randomWord, matchingLetters, setMatchingLetters, gameStatus])
+  const {allCharactersPressed, setAllCharactersPressed} = useKeyboard(randomWord, matchingLetters, setMatchingLetters, setTriesLeft, gameStatus);
 
   /* Function to restart screen in case of wictory or loose*/
   const restartGame = () => {
